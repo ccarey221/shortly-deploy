@@ -2,7 +2,10 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    concat: {
+    concat: { 
+      options: {
+        separator: ';'
+      }
     },
 
     mochaTest: {
@@ -77,7 +80,7 @@ module.exports = function(grunt) {
     'mochaTest'
   ]);
 
-  grunt.registerTask('build', [
+  grunt.registerTask('build', ['nodemon'
   ]);
 
   grunt.registerTask('upload', function(n) {
