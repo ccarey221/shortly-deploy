@@ -36,12 +36,13 @@
     "grunt-shell": "^1.2.1",
     "knex": "^0.10.0",
     "mocha": "^2.4.5",
-    "mongoose": "^4.4.10",
+    "mongoose": "^4.5.3",
     "request": "^2.34.0",
     "sqlite3": "~3.1.1"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
+    "mongodb": "^2.1.8",
     "nodemon": "^1.9.2",
     "supertest": "^1.2.0"
   }

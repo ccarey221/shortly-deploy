@@ -8,6 +8,33 @@ var knex = require('knex')({
 });
 var db = require('bookshelf')(knex);
 
+
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://root:zepartystick@107.170.202.49:4568');
+var mdb = mongoose.connection;
+mdb.on('error', console.error.bind(console, 'mdb connection error:'));
+mdb.once('open', function() {
+  // we're connected!
+});
+
+var userSchema = mongoose.Schema({
+  username: String,
+  password: String
+});
+
+var User = mongoose.model('User', userSchema);
+var newUser = new User({username: 'Stan', password: 'flan'});
+newUser.save(function(err, obj) {
+  if (err) { throw err; }
+
+});
+User.find(function(err, users) {
+  if (err) { throw err; }
+  console.log('Found Users: ', users);
+});
+
+
 db.knex.schema.hasTable('urls').then(function(exists) {
   if (!exists) {
     db.knex.schema.createTable('urls', function (link) {
