@@ -8,7 +8,7 @@ module.exports = function(grunt) {
       },
       dist: {
           // the files to concatenate
-        src: ['app/**/*.js'],
+        src: ['public/**/*.js'],
           // the location of the resulting JS file
         dest: 'public/dist/<%= pkg.name %>.js'
       }
@@ -42,12 +42,14 @@ module.exports = function(grunt) {
 
     eslint: {
       target: [
-        // Add list of files to lint here
+        ['public/**/*.js']
       ]
     },
 
     cssmin: {
-        // Add list of files to lint here
+      target: [
+        ['./public/style.css']
+      ]
     },
 
     watch: {
@@ -94,8 +96,7 @@ module.exports = function(grunt) {
     'mochaTest'
   ]);
 
-  grunt.registerTask('build', ['concat', 'uglify',
-  ]);
+  grunt.registerTask('build', ['eslint', 'concat', 'uglify'] );
 
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
