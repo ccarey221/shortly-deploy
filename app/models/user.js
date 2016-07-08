@@ -7,8 +7,8 @@ var UserSchema = new db.Schema({
   password: String
 });
 
-UserSchema.post('init', function() {
-  this.hashPassword();
+UserSchema.pre('save', function(next) {
+  this.hashPassword(next);
 });
 
 UserSchema.methods.comparePassword = function(attemptedPassword, callback) {
@@ -17,11 +17,12 @@ UserSchema.methods.comparePassword = function(attemptedPassword, callback) {
   });
 };
 
-UserSchema.methods.hashPassword = function() {
+UserSchema.methods.hashPassword = function(next) {
   var cipher = Promise.promisify(bcrypt.hash);
   return cipher(this.get('password'), null, null).bind(this)
     .then(function(hash) {
       this.set('password', hash);
+      next();
     });
 };
 var User = db.model('User', UserSchema);

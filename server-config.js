@@ -6,6 +6,7 @@ var session = require('express-session');
 var util = require('./lib/utility');
 
 var handler = require('./lib/request-handler');
+var morgan = require('morgan');
 
 var app = express();
 

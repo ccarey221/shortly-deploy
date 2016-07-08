@@ -9,13 +9,12 @@ var urlSchema = db.Schema({
   visits: Number
 });
 
-urlSchema.methods.initialize = function() {
-  this.on('creating', function(model, attrs, options) {
-    shasum.update(model.get('url'));
-    var shasum = crypto.createHash('sha1');
-    model.set('code', shasum.digest('hex').slice(0, 5));
-  });
-};
+urlSchema.pre('save', function(next) {
+  var shasum = crypto.createHash('sha1');
+  shasum.update(this.url);
+  this.set('code', shasum.digest('hex').slice(0, 5));
+  next();
+});
 
 var Link = db.model('url', urlSchema);
 
